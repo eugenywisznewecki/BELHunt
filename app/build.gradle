@@ -1,16 +1,21 @@
 apply plugin: 'com.android.application'
+
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
     defaultConfig {
-        applicationId "msq.inok.bel.belhunt"
-        minSdkVersion 18
-        targetSdkVersion 26
+        applicationId "msq.inok.bel.testKKD"
+        minSdkVersion 19
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -18,24 +23,58 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    kapt {
+        generateStubs = true
+    }
+
+    kotlin {
+        experimental {
+            coroutines 'enable'
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:26.+'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:recyclerview-v7:+'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
 
+    //Anko DSL for Kotlin
+    implementation 'org.jetbrains.anko:anko-sdk15:0.8.2'
+    implementation 'org.jetbrains.anko:anko-support-v4:0.10.4'
+    implementation 'org.jetbrains.anko:anko-appcompat-v7:0.10.4'
+    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+
+    implementation 'com.karumi:dexter:4.1.1'
+
+    implementation "com.squareup.picasso:picasso:2.5.2"
+
+    //Dagger2 - without javax annot
+    /*compile 'com.google.dagger:dagger-android:2.12'
+    kapt 'com.google.dagger:dagger-android-processor:2.12'
+    compileOnly 'com.google.dagger:dagger:2.12'
+    kapt 'com.google.dagger:dagger-compiler:2.12'*/
+    //Dagger2 - without javax annot
+    implementation 'com.google.dagger:dagger:2.12'
+    kapt 'com.google.dagger:dagger-compiler:2.12'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
+    //Stetho-listener
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    implementation 'com.facebook.stetho:stetho-urlconnection:1.5.0'
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-repositories {
-    mavenCentral()
-}
-
-apply plugin: 'kotlin-android-extensions'

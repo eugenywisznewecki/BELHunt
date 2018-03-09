@@ -1,2 +1,0 @@
-# BELhunt
-training project 

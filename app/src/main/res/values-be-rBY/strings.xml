@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">BELhunt</string>
-    <string name="title_activity_login">Увайсці</string>
-    <string name="prompt_email">Паштовая скрыня</string>
-    <string name="prompt_password">Пароль</string>
-    <string name="nameHunterRu">Паляўнічы Беларусі</string>
-    <string name="huntRulesRU">Правілы палявання</string>
-</resources>
