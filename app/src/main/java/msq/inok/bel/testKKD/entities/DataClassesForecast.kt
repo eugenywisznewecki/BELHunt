@@ -21,14 +21,14 @@ data class Weather(val id: Long, val main: String, val description: String, val 
 
 data class ForecastList(val city: String, val country: String,
                         val dailyForecast: List<ForecastIn>) : Serializable {
-	//Instead of iterable, it simplier
+
+	//Instead of iterable, its simplier
 	val size: Int
 		get() = dailyForecast.size
 
+
 	//overload to get only forecast position
 	operator fun get(position: Int) = dailyForecast[position]
-
-
 }
 
 data class ForecastIn(val id: Long, val date: Long, val description: String, val high: Int, val low: Int, val speed: Float,
