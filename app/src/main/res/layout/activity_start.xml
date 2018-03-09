@@ -3,24 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/main_gradient">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/SETTINGS"/>
+        android:text="@string/SETTINGS"
+        android:textColor="@color/colorWhite"/>
 
     <RadioGroup
         android:id="@+id/rgDaysForecast"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:textColor="@color/colorWhite"
             android:text="@string/now">
         </RadioButton>
 
@@ -28,6 +32,7 @@
             android:id="@+id/radio5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
             android:text="@string/fiveDays">
         </RadioButton>
 
@@ -35,14 +40,15 @@
             android:id="@+id/radio16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
             android:text="@string/sixteenDays">
         </RadioButton>
     </RadioGroup>
 
-    <TextView
+<!--    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_city_en"/>
+        android:text="@string/enter_city_en"/>-->
 
     <EditText
         android:id="@+id/cityTitleView"
@@ -50,15 +56,25 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="center"
-        android:text="Minsk"
+        android:text="@string/minsk"
+        android:background="@drawable/rounded_edittext"
+        android:textColor="@color/colorWhite"
+
         >
 
     </EditText>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/vectorlogo"
+        />
+
     <Spinner
         android:id="@+id/spinnerView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
     </Spinner>
 
 
@@ -67,12 +83,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
-        android:text="@string/add_city"/>
+        android:text="@string/add_city"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enterTime"/>
+        android:text="@string/enterTime"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.AppCompatSeekBar
         android:id="@+id/seekBarTimeView"
@@ -81,14 +99,14 @@
         android:max="300"
         android:min="1"
         android:progress="30"
-        android:text="@string/timeToUpdate"/>
-
-
+        android:text="@string/timeToUpdate"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/textSeekView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         />
 
     <Button
@@ -96,6 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
-        android:text="@string/ok">
+        android:text="@string/ok"
+        android:visibility="gone">
+
     </Button>
 </LinearLayout>

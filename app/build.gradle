@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "msq.inok.bel.testKKD"
+        applicationId "msq.inok.bel.belhunt"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1

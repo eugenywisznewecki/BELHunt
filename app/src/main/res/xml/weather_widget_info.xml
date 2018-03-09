@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:configure="msq.inok.bel.testKKD.ui.activities.StartActivity"
+                    android:configure="msq.inok.bel.belhunt.ui.activities.StartActivity"
                     android:initialKeyguardLayout="@layout/weather_widget"
                     android:initialLayout="@layout/weather_widget"
                     android:minHeight="110dp"
