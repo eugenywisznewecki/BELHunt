@@ -8,7 +8,7 @@
     <string name="fiveDays">5 days</string>
     <string name="sixteenDays">16 days</string>
     <string name="enter_city_en">Enter city (EN)</string>
-    <string name="SETTINGS">settings</string>
+    <string name="SETTINGS">Days</string>
     <string name="timeToUpdate">timeToUpdate</string>
     <string name="enterTime">chose time periods to updates</string>
 

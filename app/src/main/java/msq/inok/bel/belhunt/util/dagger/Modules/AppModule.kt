@@ -7,7 +7,7 @@ import dagger.Provides
 import msq.inok.bel.belhunt.data.ApplicationSettings
 import msq.inok.bel.belhunt.serverApi.Communicator
 import msq.inok.bel.belhunt.util.BadWeatherGuard
-import msq.inok.bel.belhunt.util.WifiChecker
+import msq.inok.bel.belhunt.util.InetChecker
 import javax.inject.Singleton
 
 /**
@@ -35,7 +35,7 @@ class AppModule {
 
 	@Provides
 	@Singleton
-	fun provideWifiChecker(context: Context): WifiChecker = WifiChecker(context)
+	fun provideWifiChecker(context: Context): InetChecker = InetChecker(context)
 
 	@Provides
 	@Singleton

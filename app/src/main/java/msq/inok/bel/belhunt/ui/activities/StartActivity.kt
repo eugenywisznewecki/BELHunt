@@ -4,27 +4,35 @@ import android.Manifest
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.SeekBar
-import android.widget.TextView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
+import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import msq.inok.bel.belhunt.App
 import msq.inok.bel.belhunt.R
 import msq.inok.bel.belhunt.data.ApplicationSettings
-import msq.inok.bel.belhunt.data.CITY
-import msq.inok.bel.belhunt.data.DAYSFORECAST
-import msq.inok.bel.belhunt.data.INTERVAL_UPDATES
-import msq.inok.bel.belhunt.services.WeatherIService
-import msq.inok.bel.belhunt.util.WifiChecker
-import org.jetbrains.anko.ctx
-import org.jetbrains.anko.startActivity
+import msq.inok.bel.belhunt.entities.ForecastIn
+import msq.inok.bel.belhunt.entities.ForecastList
+import msq.inok.bel.belhunt.serverApi.Communicator
+import msq.inok.bel.belhunt.ui.listAdapters.WeatherListAdapter
+import msq.inok.bel.belhunt.util.BadWeatherGuard
+import msq.inok.bel.belhunt.util.InetChecker
+import msq.inok.bel.belhunt.util.converters.WeatherMapConverter
+import msq.inok.bel.belhunt.util.extensionsFuns.toDateString
+import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.toast
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -34,9 +42,17 @@ class StartActivity : AppCompatActivity() {
 	lateinit var applicationSettings: ApplicationSettings
 
 	@Inject
-	lateinit var wifiChecker: WifiChecker
+	lateinit var inetChecker: InetChecker
 
-	lateinit var citiesSet: MutableSet<String>
+	@Inject
+	lateinit var communicator: Communicator
+
+	@Inject
+	lateinit var badWeatherGuard: BadWeatherGuard
+
+
+	//lateinit var citiesSet: MutableSet<String>
+
 
 	var resultValue = Intent()
 
@@ -47,8 +63,10 @@ class StartActivity : AppCompatActivity() {
 
 		App.component.inject(this) // inject point
 
-		citiesSet = applicationSettings.getCitiesList()
-		Log.d("TAG", "set: " + citiesSet.toString())
+
+		listStartActivity.layoutManager = LinearLayoutManager(this)
+		//citiesSet = applicationSettings.getCitiesList()
+		//Log.d("TAG", "set: " + citiesSet.toString())
 
 
 		//permission
@@ -64,7 +82,7 @@ class StartActivity : AppCompatActivity() {
 				.check()
 
 
-		//Spinner
+/*		//Spinner
 		val spinnerViewAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 				citiesSet.toList())
 		spinnerViewAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -77,29 +95,28 @@ class StartActivity : AppCompatActivity() {
 			}
 
 			override fun onNothingSelected(parent: AdapterView<*>) {}
-		}
+		}*/
 
 
-		addCityButton.setOnClickListener {
-			val city = cityTitleView.text.toString()
-			citiesSet.add(city)
-			Log.d("TAG", "set: " + citiesSet.toString())
+		/*	addCityButton.setOnClickListener {
+				val city = cityTitleView.text.toString()
+				citiesSet.add(city)
+				Log.d("TAG", "set: " + citiesSet.toString())
 
-			val b = applicationSettings.setCitiesList(citiesSet)
-			Log.d("TAG", "set upda: " + b.toString())
+				val b = applicationSettings.setCitiesList(citiesSet)
+				Log.d("TAG", "set upda: " + b.toString())
 
-			spinnerViewAdapter.add(city)
-			spinnerViewAdapter.notifyDataSetChanged()
-		}
+				spinnerViewAdapter.add(city)
+				spinnerViewAdapter.notifyDataSetChanged()
+			}*/
 
 
-
-		okSetttingChangesButton.setOnClickListener {
+		/*okSetttingChangesButton.setOnClickListener {
 			val setting = readSaveSetting()
 			Log.d("TAG", "SETTINGS: " + setting.toString())
 
 			//does wifi work - start work of the program. point
-			if (wifiChecker.checkWifi()) {
+			if (inetChecker.checInternet()) {
 
 				setResult(RESULT_OK, resultValue)
 
@@ -120,7 +137,7 @@ class StartActivity : AppCompatActivity() {
 				startActivity<MainActivity>()
 				finish()
 			} else toast("Cannot work without WIFI")
-		}
+		}*/
 
 		seekBarTimeView.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 			override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -133,6 +150,13 @@ class StartActivity : AppCompatActivity() {
 				textSeekView.setText(seekBarTimeView.progress.toString())
 			}
 		})
+
+
+		//RX+RXBindings
+		RxTextView.textChangeEvents(cityTitleView)
+				.filter { e -> e.text().length >= 3 }
+				.debounce(800, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+				.subscribe { e -> loadWeather(16, e.text().toString()) }
 	}
 
 	private fun setWidgetSettAnswer() {
@@ -172,6 +196,67 @@ class StartActivity : AppCompatActivity() {
 
 		return Triple(showDaysForecast, timeToUpdates, city)
 	}
+
+
+	//with defaults bcsof NPE upper
+	private fun loadWeather(days: Int, city: String) = async(UI) {
+		if (inetChecker.checInternet()) {
+			val result = bg { communicator.communicate(days, city) }
+			val forecastList = WeatherMapConverter().convertResultToForList(city, result.await()!!)
+			if (forecastList.size > 0) {
+				/*val intentBroad = Intent(WeatherIService.BROADCAST_ACTION)
+		intentBroad.putExtra(FORECAST_LIST_ACTION_SEND, forecastList)
+		sendBroadcast(intentBroad)*/
+				updateDataUI(forecastList)
+			} else
+				Log.d("TAG", "forecastList.size == 0! ")
+			Log.d("TAG", "was getting from the server: " + forecastList.toString())
+		}
+	}
+
+	private fun startForecasting(days: Int, city: String): ForecastList? {
+		if (inetChecker.checInternet()) {
+			val result = communicator.communicate(days, city)
+			if (result != null) {
+				val forecastList = WeatherMapConverter().convertResultToForList(city, result)
+				val negativeForecast = badWeatherGuard.checkNextBadWeather(forecastList)
+				if (negativeForecast != null) {
+					setNotification(negativeForecast)
+				}
+				//save to static field
+				//WeatherIService.forecastListStatic = forecastList
+				if (forecastList.size > 0) {
+					updateDataUI(forecastList)
+
+				} else Log.d("TAG", "forecastList.size == 0! ")
+			} else Log.d("TAG", "result = null ")
+		} else Log.d("TAG", "no internet")
+		return null
+	}
+
+	private fun setNotification(negativeForecast: ForecastIn) {
+
+		val notification = NotificationCompat.Builder(this)
+				.setTicker("WARNING!")
+				.setSmallIcon(R.mipmap.ic_launcher)
+				.setContentTitle("Negative forecast")
+				.setContentText("${negativeForecast.date.toDateString()} ${negativeForecast.description} ${negativeForecast.high}C" +
+						"${negativeForecast.low}C wind speed: ${negativeForecast.speed}")
+				.build()
+
+		val notificationManager = NotificationManagerCompat.from(this)
+		notificationManager.notify(0, notification)
+	}
+
+	private fun updateDataUI(listForecast: ForecastList) {
+
+		imageGUNS.visibility = View.GONE
+		val adapter = WeatherListAdapter(listForecast)
+		listStartActivity.adapter = adapter
+		listStartActivity.adapter.notifyDataSetChanged()
+		toast("updated")
+	}
+
 
 }
 

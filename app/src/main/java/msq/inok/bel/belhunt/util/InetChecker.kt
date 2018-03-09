@@ -8,13 +8,13 @@ import android.util.Log
 /**
  * Created by User on 13.01.2018.
  */
-class WifiChecker(val context: Context) {
+class InetChecker(val context: Context) {
 
 
-	fun checkWifi(): Boolean {
+	fun checInternet(): Boolean {
 		val wifiCheck: NetworkInfo?
 		val connectionManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-		wifiCheck = connectionManager?.getActiveNetworkInfo()
+		wifiCheck = connectionManager.getActiveNetworkInfo()
 
 		if (wifiCheck != null) {
 			when (wifiCheck.getType()) {
@@ -22,17 +22,16 @@ class WifiChecker(val context: Context) {
 					return true
 				}
 				(ConnectivityManager.TYPE_MOBILE) -> {
-					return false
+					return true
 				}
-				(ConnectivityManager.TYPE_MOBILE) -> {
-					return false
-				}
+
 			}
 		} else Log.d("TAG", "wifiCheck null!")
 		return false
 	}
 
 
+	//for intent services, will be used later
 	fun isNetworkForBackgroundAwailable(): Boolean {
 		val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 		val isNetAwailable = connectivityManager.activeNetworkInfo != null

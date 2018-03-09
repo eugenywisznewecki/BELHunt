@@ -53,10 +53,10 @@
     <EditText
         android:id="@+id/cityTitleView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:ems="10"
+
         android:gravity="center"
-        android:text="@string/minsk"
         android:background="@drawable/rounded_edittext"
         android:textColor="@color/colorWhite"
 
@@ -65,6 +65,7 @@
     </EditText>
 
     <ImageView
+        android:id="@+id/imageGUNS"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/vectorlogo"
@@ -115,7 +116,15 @@
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="@string/ok"
-        android:visibility="gone">
+        >
 
     </Button>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listStartActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        />
 </LinearLayout>

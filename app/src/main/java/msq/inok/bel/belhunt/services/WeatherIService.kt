@@ -11,14 +11,13 @@ import android.support.v4.app.NotificationManagerCompat
 import android.util.Log
 import msq.inok.bel.belhunt.App
 import msq.inok.bel.belhunt.R
-import msq.inok.bel.belhunt.data.ApplicationSettings
 import msq.inok.bel.belhunt.data.CITY
 import msq.inok.bel.belhunt.data.DAYSFORECAST
 import msq.inok.bel.belhunt.entities.ForecastIn
 import msq.inok.bel.belhunt.entities.ForecastList
 import msq.inok.bel.belhunt.serverApi.Communicator
 import msq.inok.bel.belhunt.util.BadWeatherGuard
-import msq.inok.bel.belhunt.util.WifiChecker
+import msq.inok.bel.belhunt.util.InetChecker
 import msq.inok.bel.belhunt.util.converters.WeatherMapConverter
 import msq.inok.bel.belhunt.util.extensionsFuns.toDateString
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class WeatherIService : IntentService("WeatherIService") {
 	lateinit var communicator: Communicator
 
 	@Inject
-	lateinit var wifiChecker: WifiChecker
+	lateinit var inetChecker: InetChecker
 
 	@Inject
 	lateinit var badWeatherGuard: BadWeatherGuard
@@ -106,7 +105,7 @@ class WeatherIService : IntentService("WeatherIService") {
 
 	private fun handleForecastingService(days: Int, city: String) {
 
-		if (wifiChecker.checkWifi() && wifiChecker.isNetworkForBackgroundAwailable()) {
+		if (inetChecker.checInternet() && inetChecker.isNetworkForBackgroundAwailable()) {
 
 			val result = communicator.communicate(days, city)
 
