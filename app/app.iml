@@ -152,10 +152,14 @@
     <orderEntry type="library" name="org.jetbrains.anko:anko-coroutines:0.10.4@jar" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-27.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:design-27.1.0" level="project" />
+    <orderEntry type="library" name="com.arello-mobile:moxy:1.5.3@jar" level="project" />
     <orderEntry type="library" name="org.jetbrains.kotlinx:kotlinx-coroutines-android:0.15@jar" level="project" />
     <orderEntry type="library" name="com.android.support:transition-27.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="com.squareup:javawriter:2.1.1@jar" level="project" />
     <orderEntry type="library" name="com.android.support:recyclerview-v7-27.1.0" level="project" />
+    <orderEntry type="library" name="com.squareup.retrofit2:adapter-rxjava2:2.3.0@jar" level="project" />
+    <orderEntry type="library" name="com.android.support.constraint:constraint-layout-solver:1.0.2@jar" level="project" />
+    <orderEntry type="library" name="com.android.support.constraint:constraint-layout-1.0.2" level="project" />
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.2@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test:runner-1.0.1" level="project" />
     <orderEntry type="library" name="com.google.code.findbugs:jsr305:2.0.1@jar" level="project" />
@@ -201,6 +205,7 @@
     <orderEntry type="library" name="org.jetbrains:annotations:13.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-media-compat-27.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-fragment-27.1.0" level="project" />
+    <orderEntry type="library" name="com.arello-mobile:moxy-app-compat:1.5.3@jar" level="project" />
     <orderEntry type="library" name="org.jetbrains.kotlinx:kotlinx-coroutines-core:0.15@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-27.1.0" level="project" />
     <orderEntry type="library" name="io.reactivex.rxjava2:rxjava:2.1.10@jar" level="project" />

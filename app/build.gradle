@@ -47,17 +47,17 @@ dependencies {
     implementation 'com.android.support:design:27.1.0'
     /*implementation 'com.android.support.constraint:constraint-layout:1.0.2'*/
 
-
     //Anko DSL for Kotlin
     implementation 'org.jetbrains.anko:anko-sdk15:0.10.4'
-  /*  implementation 'org.jetbrains.anko:anko-support-v4:0.10.4'*/
-  /*  implementation 'org.jetbrains.anko:anko-appcompat-v7:0.10.4'*/
+    /*  implementation 'org.jetbrains.anko:anko-support-v4:0.10.4'*/
+    /*  implementation 'org.jetbrains.anko:anko-appcompat-v7:0.10.4'*/
     implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 
     implementation 'com.google.code.gson:gson:2.8.2'
 
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
 
     implementation 'com.karumi:dexter:4.1.1'
 
@@ -66,6 +66,7 @@ dependencies {
     //Dagger2 - without javax annot
 
     implementation 'com.google.dagger:dagger:2.12'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     kapt 'com.google.dagger:dagger-compiler:2.12'
 
     // https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava
@@ -74,13 +75,14 @@ dependencies {
     implementation group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.0.2'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
 
-
-
-
     //Stetho-listener
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     implementation 'com.facebook.stetho:stetho-urlconnection:1.5.0'
+
+    implementation "com.arello-mobile:moxy:1.5.3"
+    implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
+    kapt 'com.arello-mobile:moxy-compiler:1.5.3'
 
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

@@ -1,4 +1,4 @@
-package msq.inok.bel.belhunt.util
+package msq.inok.bel.belhunt.checkers
 
 import android.content.Context
 import android.net.ConnectivityManager

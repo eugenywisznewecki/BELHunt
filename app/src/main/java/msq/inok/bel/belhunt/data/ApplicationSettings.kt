@@ -3,6 +3,7 @@ package msq.inok.bel.belhunt.data
 import android.content.Context
 import android.preference.PreferenceManager
 import android.util.Log
+import msq.inok.bel.belhunt.util.*
 
 /**
  * Created by inoknote on 13/01/18.
@@ -14,10 +15,10 @@ class ApplicationSettings(val context: Context) {
 
 
 	//with defaults
-	fun saveSettings(dayforecast: Int = INITdaysToForecast, intervalUpdates: Int = INITTimeUpdate, city: String = INITCity): Boolean {
+	fun saveSettings(dayforecast: Int = INITdaysToForecast, city: String = INITCity): Boolean {
 		val editor = sharedPref.edit()
 		editor.putInt(DAYSFORECAST, dayforecast)
-		editor.putInt(INTERVAL_UPDATES, intervalUpdates)
+		/*editor.putInt(INTERVAL_UPDATES, intervalUpdates)*/
 		editor.putString(CITY, city)
 
 		return editor.commit()

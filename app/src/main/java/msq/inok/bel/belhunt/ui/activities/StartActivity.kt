@@ -1,42 +1,37 @@
 package msq.inok.bel.belhunt.ui.activities
 
 import android.Manifest
-import android.appwidget.AppWidgetManager
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
-import android.widget.SeekBar
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.PresenterType
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
-import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_start.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
 import msq.inok.bel.belhunt.App
 import msq.inok.bel.belhunt.R
 import msq.inok.bel.belhunt.data.ApplicationSettings
 import msq.inok.bel.belhunt.entities.ForecastIn
 import msq.inok.bel.belhunt.entities.ForecastList
+import msq.inok.bel.belhunt.presentation.presenters.Presenter
 import msq.inok.bel.belhunt.serverApi.Communicator
 import msq.inok.bel.belhunt.ui.listAdapters.WeatherListAdapter
-import msq.inok.bel.belhunt.util.BadWeatherGuard
-import msq.inok.bel.belhunt.util.InetChecker
-import msq.inok.bel.belhunt.util.converters.WeatherMapConverter
+import msq.inok.bel.belhunt.checkers.BadWeatherGuard
+import msq.inok.bel.belhunt.checkers.InetChecker
 import msq.inok.bel.belhunt.util.extensionsFuns.toDateString
-import org.jetbrains.anko.coroutines.experimental.bg
-import org.jetbrains.anko.toast
-import java.util.concurrent.TimeUnit
+import msq.inok.bel.belhunt.presentation.view.ImvpMainView
 import javax.inject.Inject
+import com.arellomobile.mvp.MvpAppCompatActivity
 
 
-class StartActivity : AppCompatActivity() {
+class StartActivity : MvpAppCompatActivity(), ImvpMainView {
+
+	@InjectPresenter(type = PresenterType.GLOBAL)
+	lateinit var presenter: Presenter
 
 	@Inject
 	lateinit var applicationSettings: ApplicationSettings
@@ -54,20 +49,14 @@ class StartActivity : AppCompatActivity() {
 	//lateinit var citiesSet: MutableSet<String>
 
 
-	var resultValue = Intent()
+	//var resultValue = Intent()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setWidgetSettAnswer()
+		/*setWidgetSettAnswer()*/
 		setContentView(R.layout.activity_start)
 
-		App.component.inject(this) // inject point
-
-
-		listStartActivity.layoutManager = LinearLayoutManager(this)
-		//citiesSet = applicationSettings.getCitiesList()
-		//Log.d("TAG", "set: " + citiesSet.toString())
-
+		App.component.inject(this)
 
 		//permission
 		Dexter.withActivity(this)
@@ -82,104 +71,31 @@ class StartActivity : AppCompatActivity() {
 				.check()
 
 
-/*		//Spinner
-		val spinnerViewAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-				citiesSet.toList())
-		spinnerViewAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-		spinnerView.adapter = spinnerViewAdapter
-		spinnerView.prompt = "Select City"
-		spinnerView.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-			override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-				val text = spinnerView.selectedItem.toString()
-				cityTitleView.setText(text, TextView.BufferType.EDITABLE)
-			}
+		listStartActivity.layoutManager = LinearLayoutManager(this)
 
-			override fun onNothingSelected(parent: AdapterView<*>) {}
-		}*/
+		presenter.setEditTextObservable(RxTextView.textChanges(cityTitleView))
 
 
-		/*	addCityButton.setOnClickListener {
-				val city = cityTitleView.text.toString()
-				citiesSet.add(city)
-				Log.d("TAG", "set: " + citiesSet.toString())
 
-				val b = applicationSettings.setCitiesList(citiesSet)
-				Log.d("TAG", "set upda: " + b.toString())
+		//TODO replace this !
 
-				spinnerViewAdapter.add(city)
-				spinnerViewAdapter.notifyDataSetChanged()
-			}*/
+		//citiesSet = applicationSettings.getCitiesList()
+		//Log.d("TAG", "set: " + citiesSet.toString())
 
 
-		/*okSetttingChangesButton.setOnClickListener {
-			val setting = readSaveSetting()
-			Log.d("TAG", "SETTINGS: " + setting.toString())
-
-			//does wifi work - start work of the program. point
-			if (inetChecker.checInternet()) {
-
-				setResult(RESULT_OK, resultValue)
-
-				if (WeatherIService.isSericeAlarnOn(ctx))
-					WeatherIService.setServiceAlarm(ctx, false, setting.first, setting.second.toLong(), setting.third)
-
-				//starting IntentService
-				val intent = WeatherIService.newIntent(ctx)
-				intent.putExtra(DAYSFORECAST, setting.first)
-				intent.putExtra(INTERVAL_UPDATES, setting.second)
-				intent.putExtra(CITY, setting.third)
-				WeatherIService.startForecastingService(ctx, setting.first, setting.second.toLong(), setting.third)
-
-				//starting alarming IntentService
-				///days, time to update, city
-				WeatherIService.setServiceAlarm(ctx, true, setting.first, setting.second.toLong(), setting.third)
-
-				startActivity<MainActivity>()
-				finish()
-			} else toast("Cannot work without WIFI")
-		}*/
-
-		seekBarTimeView.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-			override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-			}
-
-			override fun onStartTrackingTouch(p0: SeekBar?) {
-			}
-
-			override fun onStopTrackingTouch(p0: SeekBar?) {
-				textSeekView.setText(seekBarTimeView.progress.toString())
-			}
-		})
-
-
+//TODO main point
 		//RX+RXBindings
-		RxTextView.textChangeEvents(cityTitleView)
+	/*	RxTextView.textChangeEvents(cityTitleView)
 				.filter { e -> e.text().length >= 3 }
 				.debounce(800, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-				.subscribe { e -> loadWeather(16, e.text().toString()) }
+				.subscribe { e -> loadWeather(16, e.text().toString()) }*/
 	}
 
-	private fun setWidgetSettAnswer() {
-		var widgetID = AppWidgetManager.INVALID_APPWIDGET_ID
-		val intent = getIntent()
-		val extras = intent.extras
-		if (extras != null) {
-			widgetID = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID,
-					AppWidgetManager.INVALID_APPWIDGET_ID)
-		}
-		if (widgetID == AppWidgetManager.INVALID_APPWIDGET_ID) {
-
-		}
-		resultValue = Intent()
-		resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetID)
-		setResult(RESULT_CANCELED, resultValue)
-	}
 
 	//returns days, time to update, city
-	fun readSaveSetting(): Triple<Int, Int, String> {
+/*	fun readSaveSetting(): Pair<Int, String> {
 
-		var showDaysForecast = 1;
-		var timeToUpdates = 30;
+		var showDaysForecast = 1
 
 		with(rgDaysForecast) {
 			when {
@@ -189,34 +105,33 @@ class StartActivity : AppCompatActivity() {
 			}
 		}
 
-		timeToUpdates = seekBarTimeView.progress
 		val city = cityTitleView.text.toString()
 
-		applicationSettings.saveSettings(showDaysForecast, timeToUpdates, city)
+		applicationSettings.saveSettings(showDaysForecast, city)
 
-		return Triple(showDaysForecast, timeToUpdates, city)
-	}
+		return Pair(showDaysForecast, city)
+	}*/
 
 
 	//with defaults bcsof NPE upper
-	private fun loadWeather(days: Int, city: String) = async(UI) {
+/*	private fun loadWeather(days: Int, city: String) = async(UI) {
 		if (inetChecker.checInternet()) {
-			val result = bg { communicator.communicate(days, city) }
+			val result = bg { communicator.getForecast(days, city) }
 			val forecastList = WeatherMapConverter().convertResultToForList(city, result.await()!!)
 			if (forecastList.size > 0) {
-				/*val intentBroad = Intent(WeatherIService.BROADCAST_ACTION)
+				*//*val intentBroad = Intent(WeatherIService.BROADCAST_ACTION)
 		intentBroad.putExtra(FORECAST_LIST_ACTION_SEND, forecastList)
-		sendBroadcast(intentBroad)*/
+		sendBroadcast(intentBroad)*//*
 				updateDataUI(forecastList)
 			} else
 				Log.d("TAG", "forecastList.size == 0! ")
 			Log.d("TAG", "was getting from the server: " + forecastList.toString())
 		}
-	}
+	}*/
 
-	private fun startForecasting(days: Int, city: String): ForecastList? {
+/*	private fun startForecasting(days: Int, city: String): ForecastList? {
 		if (inetChecker.checInternet()) {
-			val result = communicator.communicate(days, city)
+			val result = communicator.getForecast(days, city)
 			if (result != null) {
 				val forecastList = WeatherMapConverter().convertResultToForList(city, result)
 				val negativeForecast = badWeatherGuard.checkNextBadWeather(forecastList)
@@ -232,7 +147,8 @@ class StartActivity : AppCompatActivity() {
 			} else Log.d("TAG", "result = null ")
 		} else Log.d("TAG", "no internet")
 		return null
-	}
+	}*/
+
 
 	private fun setNotification(negativeForecast: ForecastIn) {
 
@@ -248,14 +164,47 @@ class StartActivity : AppCompatActivity() {
 		notificationManager.notify(0, notification)
 	}
 
-	private fun updateDataUI(listForecast: ForecastList) {
 
-		imageGUNS.visibility = View.GONE
-		val adapter = WeatherListAdapter(listForecast)
-		listStartActivity.adapter = adapter
+	override fun updateDataUI() {
+
 		listStartActivity.adapter.notifyDataSetChanged()
-		toast("updated")
+
+		when {
+			(listStartActivity.adapter.itemCount == 0) -> {
+				listStartActivity.visibility = View.GONE
+				imageGUNS.visibility = View.VISIBLE
+			}
+			(listStartActivity.adapter.itemCount > 0) -> {
+				listStartActivity.visibility = View.VISIBLE
+				imageGUNS.visibility = View.GONE
+			}
+		}
 	}
+
+	override fun onForecastsLoaded(forecastList: ForecastList) {
+
+		listStartActivity.adapter = WeatherListAdapter(forecastList)
+		updateDataUI()
+	}
+
+/*	override fun onEditTextEntered(): Observable<CharSequence> {
+		return RxTextView.textChanges(cityTitleView)
+	}*/
+
+
+	override fun onShowErrorMessage(message: String) {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+/*
+
+	override fun onEditTextEntered(): Observable<CharSequence> = RxTextView.textChanges(cityTitleView)
+*/
+
+	override fun onShowForecastList() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
+
 
 
 }

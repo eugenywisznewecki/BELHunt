@@ -1,10 +1,10 @@
 package msq.inok.bel.belhunt
 
 import android.app.Application
-import msq.inok.bel.belhunt.util.dagger.Component.AppComponent
+import msq.inok.bel.belhunt.di.AppComponent
 import com.facebook.stetho.Stetho
-import msq.inok.bel.belhunt.util.dagger.Component.DaggerAppComponent
-import msq.inok.bel.belhunt.util.dagger.Modules.AppModule
+import msq.inok.bel.belhunt.util.dagger.component.DaggerAppComponent
+import msq.inok.bel.belhunt.di.AppModule
 
 
 class App: Application(){

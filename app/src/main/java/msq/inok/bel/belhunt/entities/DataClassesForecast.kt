@@ -3,7 +3,7 @@ package msq.inok.bel.belhunt.entities
 import java.io.Serializable
 
 /**
- * Created by inoknote on 13/01/18.
+ * Created by inoknote on 09/03/18.
  */
 
 data class ForecastResult(val city: City, val list: List<Forecast>) : Serializable

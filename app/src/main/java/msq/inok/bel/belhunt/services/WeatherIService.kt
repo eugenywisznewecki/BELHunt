@@ -11,13 +11,13 @@ import android.support.v4.app.NotificationManagerCompat
 import android.util.Log
 import msq.inok.bel.belhunt.App
 import msq.inok.bel.belhunt.R
-import msq.inok.bel.belhunt.data.CITY
-import msq.inok.bel.belhunt.data.DAYSFORECAST
+import msq.inok.bel.belhunt.util.CITY
+import msq.inok.bel.belhunt.util.DAYSFORECAST
 import msq.inok.bel.belhunt.entities.ForecastIn
 import msq.inok.bel.belhunt.entities.ForecastList
 import msq.inok.bel.belhunt.serverApi.Communicator
-import msq.inok.bel.belhunt.util.BadWeatherGuard
-import msq.inok.bel.belhunt.util.InetChecker
+import msq.inok.bel.belhunt.checkers.BadWeatherGuard
+import msq.inok.bel.belhunt.checkers.InetChecker
 import msq.inok.bel.belhunt.util.converters.WeatherMapConverter
 import msq.inok.bel.belhunt.util.extensionsFuns.toDateString
 import javax.inject.Inject
@@ -107,7 +107,7 @@ class WeatherIService : IntentService("WeatherIService") {
 
 		if (inetChecker.checInternet() && inetChecker.isNetworkForBackgroundAwailable()) {
 
-			val result = communicator.communicate(days, city)
+			val result = communicator.getForecast(days, city)
 
 			if (result != null) {
 				val forecastList = WeatherMapConverter().convertResultToForList(city, result)
@@ -159,7 +159,7 @@ class WeatherIService : IntentService("WeatherIService") {
 
 /*	//with defaults bcsof NPE upper
 	private fun loadWeather(days: Int, city: String) = async(UI) {
-		val result = bg { communicator.communicate(days, city) }
+		val result = bg { communicator.getForecast(days, city) }
 		val forecastList = WeatherMapConverter().convertResultToForList(city, result.await()!!)
 
 		if (forecastList.size > 0) {

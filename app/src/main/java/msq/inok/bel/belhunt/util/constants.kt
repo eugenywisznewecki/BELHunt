@@ -1,4 +1,4 @@
-package msq.inok.bel.belhunt.data
+package msq.inok.bel.belhunt.util
 
 /**
  * Created by User on 09.03.2018.
