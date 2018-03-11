@@ -18,5 +18,4 @@ interface AppComponent {
 
 	fun inject(communicator: Communicator)
 
-
 }
