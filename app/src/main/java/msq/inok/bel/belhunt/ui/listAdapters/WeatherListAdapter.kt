@@ -12,9 +12,6 @@ import msq.inok.bel.belhunt.entities.ForecastIn
 import msq.inok.bel.belhunt.entities.ForecastList
 import msq.inok.bel.belhunt.util.extensionsFuns.toDateString
 
-/**
- * Created by inoknote on 13/01/18.
- */
 class WeatherListAdapter(private val listForecast: ForecastList) : RecyclerView.Adapter<WeatherListAdapter.ViewHolder>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +32,9 @@ class WeatherListAdapter(private val listForecast: ForecastList) : RecyclerView.
 				Picasso.with(itemView.context).load(iconUrl).into(itemView.icon)
 				itemView.date.text = date.toDateString()
 				itemView.description.text = description
+
+				//I know that's practise's terrible, but it's trainin project
+
 				itemView.nightTemperature.text = "night: ${low}º"
 				itemView.dayTemperature.text = "day: ${high}º"
 				itemView.wind.text = "wind speed: ${speed}"
@@ -43,7 +43,6 @@ class WeatherListAdapter(private val listForecast: ForecastList) : RecyclerView.
 					(high > 29 || high < -10) -> itemView.dayTemperature.setBackgroundColor(RED)
 					(low > 29 || low < -10) -> itemView.nightTemperature.setBackgroundColor(RED)
 					(speed > 10) -> itemView.wind.setBackgroundColor(RED)
-
 				}
 			}
 		}

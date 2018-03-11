@@ -5,14 +5,11 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.coroutines.experimental.Deferred
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import msq.inok.bel.belhunt.App
-import msq.inok.bel.belhunt.checkers.BadWeatherGuard
 import msq.inok.bel.belhunt.checkers.InetChecker
-import msq.inok.bel.belhunt.data.ApplicationSettings
-import msq.inok.bel.belhunt.entities.ForecastList
 import msq.inok.bel.belhunt.mvp.view.ImvpMainView
 import msq.inok.bel.belhunt.serverApi.Communicator
 import msq.inok.bel.belhunt.util.INITdaysToFORECAST
@@ -21,15 +18,9 @@ import org.jetbrains.anko.coroutines.experimental.bg
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-/**
- * Created by User on 09.03.2018.
- */
 
 @InjectViewState
 class Presenter : MvpPresenter<ImvpMainView>() {
-
-	@Inject
-	lateinit var applicationSettings: ApplicationSettings
 
 	@Inject
 	lateinit var inetChecker: InetChecker
@@ -37,44 +28,45 @@ class Presenter : MvpPresenter<ImvpMainView>() {
 	@Inject
 	lateinit var communicator: Communicator
 
-	@Inject
-	lateinit var badWeatherGuard: BadWeatherGuard
 
-	lateinit var forecastListIN: ForecastList
+	lateinit var observableIN: Observable<CharSequence>
 
-    lateinit var observableIN: Observable<CharSequence>
+	lateinit var disposableIn: Disposable
 
+	var isSubscribed: Boolean = false
+	var isNewActivity: Boolean = true
 
 	init {
 		App.component.inject(this)
-		Log.d("TAG", "presenter inicialized")
+
 	}
 
-	fun setObservableInPresenter(observable: Observable<CharSequence>) {
-			this.observableIN = observable
-			Log.d("TAG", "observable is inicialized")
-	}
+	fun startSubscription() {
+		if (!isSubscribed && isNewActivity && ::observableIN.isInitialized) {
 
-	fun setSubscribe(){
-		observableIN.filter { e -> e.length >= 3 }
-				.debounce(800, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-				.cache()
-				.subscribe { e -> loadForecast(INITdaysToFORECAST, e.toString()) }
+			disposableIn = observableIN.filter { e -> e.length >= 3 }
+					.debounce(800, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+					.subscribe { e -> loadForecast(INITdaysToFORECAST, e.toString()) }
+			isSubscribed = true
+		} else {
+			Log.d("TAG", "already subscribed, passing the method")
+		}
 	}
 
 
 	override fun attachView(view: ImvpMainView?) {
 		super.attachView(view)
 		Log.d("TAG", "attachView")
-
-		if (::forecastListIN.isInitialized)
-			viewState.onForecastsLoaded(forecastListIN)
 	}
 
 	override fun detachView(view: ImvpMainView?) {
 		super.detachView(view)
-		Log.d("TAG", "detachView")
 
+		isNewActivity = true
+		isSubscribed = false
+
+		if (::disposableIn.isInitialized)
+			disposableIn.dispose()
 
 	}
 
@@ -82,39 +74,24 @@ class Presenter : MvpPresenter<ImvpMainView>() {
 		super.onFirstViewAttach()
 		Log.d("TAG", "onFirstViewAttach")
 
-		observableIN.filter { e -> e.length >= 3 }
-				.debounce(800, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-				.subscribe { e -> loadForecast(INITdaysToFORECAST, e.toString()) }
+		//TODO to set some login about first launch?
 	}
 
-	override fun isInRestoreState(view: ImvpMainView?): Boolean {
-		return super.isInRestoreState(view)
-	}
 
-	fun setEditTextListener(){
-		observableIN.filter { e -> e.length >= 3 }
-				.debounce(800, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-				.cache()
-				.subscribe { e -> loadForecast(INITdaysToFORECAST, e.toString()) }
-	}
+	// might be used Schedulers.io() from RX to asynch, but now I try to understand couroutines
 
-	//TODO remove all logs
-	fun loadForecast(days: Int, city: String): Deferred<Unit> {
-		Log.d("TAG", "try do download " + days.toString() + " " + city)
-
-		return async(UI) {
-			if (inetChecker.checInternet()) {
-				val result = bg { communicator.getForecast(days, city) }
-				val forecastList = WeatherMapConverter().convertResultToForList(city, result.await()!!)
-				if (forecastList.size > 0) {
-					viewState.onForecastsLoaded(forecastList)
-					forecastListIN = forecastList
-				} else
-					Log.d("TAG", "forecastList.size == 0! ")
-				Log.d("TAG", "was getting from the server: " + forecastList.toString())
+	fun loadForecast(days: Int, city: String) = async(UI) {
+		if (inetChecker.checInternet()) {
+			val result = bg {
+				communicator.getForecast(days, city)
 			}
-		}
-	}
 
+			val forecastList = WeatherMapConverter().convertResultToForList(city, result.await())
+
+			viewState.onForecastsLoaded(forecastList)
+
+			Log.d("TAG", "was getting from the server: " + forecastList.toString())
+		} else Log.d("TAG", "no Internet")
+	}
 
 }

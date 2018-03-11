@@ -9,8 +9,13 @@ import java.util.concurrent.TimeUnit
 
 class WeatherMapConverter {
 
-	fun convertResultToForList(cityWname: String, forecast: ForecastResult) = with(forecast) {
-		ForecastList(cityWname, city.country, convertListForecastToInside(list))
+	fun convertResultToForList(cityWname: String, forecast: ForecastResult?): ForecastList? {
+		if (forecast != null) {
+			with(forecast) {
+				return ForecastList(cityWname, city.country, convertListForecastToInside(list))
+			}
+		}
+		else return null
 	}
 
 	private fun convertListForecastToInside(list: List<Forecast>): List<ForecastIn> {

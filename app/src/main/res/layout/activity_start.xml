@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_gradient"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:background="@drawable/main_gradient">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,40 +24,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:textColor="@color/colorWhite"
-            android:text="@string/now">
+            android:text="@string/now"
+            android:textColor="@color/colorWhite">
         </RadioButton>
 
         <RadioButton
             android:id="@+id/radio5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:text="@string/fiveDays">
+            android:text="@string/fiveDays"
+            android:textColor="@color/colorWhite">
         </RadioButton>
 
         <RadioButton
             android:id="@+id/radio16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:text="@string/sixteenDays">
+            android:text="@string/sixteenDays"
+            android:textColor="@color/colorWhite">
         </RadioButton>
     </RadioGroup>
 
-<!--    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/enter_city_en"/>-->
+    <!--    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_city_en"/>-->
 
     <EditText
         android:id="@+id/cityTitleView"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:ems="10"
-
-        android:gravity="center"
         android:background="@drawable/rounded_edittext"
+
+        android:ems="10"
+        android:gravity="center"
         android:textColor="@color/colorWhite"
 
         >
@@ -70,7 +70,6 @@
         android:layout_height="match_parent"
         android:src="@drawable/vectorlogo"
         />
-
 
 
     <android.support.v7.widget.RecyclerView

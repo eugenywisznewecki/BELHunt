@@ -9,19 +9,8 @@ import msq.inok.bel.belhunt.entities.ForecastList
  * Created by User on 09.03.2018.
  */
 @StateStrategyType(value = AddToEndSingleStrategy::class)
-interface ImvpMainView: MvpView {
+interface ImvpMainView : MvpView {
 
-	fun onForecastsLoaded(forecastList: ForecastList)
-
-	fun onShowErrorMessage(message: String)
-
-	fun onShowForecastList()
-
-	fun getData()
-
-	fun updateDataUI()
-
-	fun sendObservable()
-
+	fun onForecastsLoaded(forecastList: ForecastList?)
 
 }

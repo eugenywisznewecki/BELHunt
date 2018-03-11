@@ -3,6 +3,8 @@ package msq.inok.bel.belhunt.ui.activities
 import android.Manifest
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -18,7 +20,6 @@ import msq.inok.bel.belhunt.entities.ForecastList
 import msq.inok.bel.belhunt.mvp.presenters.Presenter
 import msq.inok.bel.belhunt.mvp.view.ImvpMainView
 import msq.inok.bel.belhunt.ui.listAdapters.WeatherListAdapter
-import org.jetbrains.anko.toast
 
 
 class StartActivity : MvpAppCompatActivity(), ImvpMainView {
@@ -48,53 +49,44 @@ class StartActivity : MvpAppCompatActivity(), ImvpMainView {
 
 		listStartActivity.layoutManager = LinearLayoutManager(this)
 
-
-
-
-
+		//sends observable to presenter
 		presenter.observableIN = RxTextView.textChanges(cityTitleView)
 
+
+		//crutch!!! TODO do this in a right way!
+		cityTitleView.addTextChangedListener(object : TextWatcher {
+			override fun afterTextChanged(p0: Editable?) {
+				presenter.startSubscription()
+				presenter.isNewActivity = false
+			}
+
+			override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+			}
+
+			override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+			}
+		})
 	}
 
 
-	override fun updateDataUI() {
+	override fun onForecastsLoaded(forecastList: ForecastList?) {
+		if (forecastList != null) {
+			listStartActivity.adapter = WeatherListAdapter(forecastList)
+			listStartActivity.adapter.notifyDataSetChanged()
 
-		listStartActivity.adapter.notifyDataSetChanged()
-
-		when {
-			(listStartActivity.adapter.itemCount == 0) -> {
-				listStartActivity.visibility = View.GONE
-				imageGUNS.visibility = View.VISIBLE
-			}
-			(listStartActivity.adapter.itemCount > 0) -> {
-				listStartActivity.visibility = View.VISIBLE
-				imageGUNS.visibility = View.GONE
-			}
+			listStartActivity.visibility = View.VISIBLE
+			imageGUNS.visibility = View.GONE
+		} else {
+			listStartActivity.visibility = View.GONE
+			imageGUNS.visibility = View.VISIBLE
 		}
 	}
 
-	override fun onForecastsLoaded(forecastList: ForecastList) {
-		toast("updated")
-		listStartActivity.adapter = WeatherListAdapter(forecastList)
-		updateDataUI()
-	}
 
-
-	override fun onShowErrorMessage(message: String) {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-	}
-
-
-	override fun onShowForecastList() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-	}
-
-	override fun sendObservable() {
-		presenter.setObservableInPresenter(RxTextView.textChanges(cityTitleView))
-	}
-
-	override fun getData() {
-		presenter.setEditTextListener()
+	override fun onDestroy() {
+		super.onDestroy()
 	}
 }
 

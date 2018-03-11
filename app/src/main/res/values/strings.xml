@@ -13,6 +13,9 @@
     <string name="enterTime">chose time periods to updates</string>
 
 
+    <string name="day">day</string>
+    <string name="night">night</string>
+    <string name="wind_speed">wind speed:</string>
     <!--KEYS api-->
     <string name="APPID_Stolen">15646a06818f61f7b8d7823ca833e1ce</string>
     <string name="APPID">220b17d30854858c0c47192689cf6d4e</string>
