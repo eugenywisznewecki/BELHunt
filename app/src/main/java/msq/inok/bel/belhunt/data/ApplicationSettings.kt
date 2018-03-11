@@ -15,7 +15,7 @@ class ApplicationSettings(val context: Context) {
 
 
 	//with defaults
-	fun saveSettings(dayforecast: Int = INITdaysToForecast, city: String = INITCity): Boolean {
+	fun saveSettings(dayforecast: Int = INITdaysToFORECAST, city: String = INITCity): Boolean {
 		val editor = sharedPref.edit()
 		editor.putInt(DAYSFORECAST, dayforecast)
 		/*editor.putInt(INTERVAL_UPDATES, intervalUpdates)*/

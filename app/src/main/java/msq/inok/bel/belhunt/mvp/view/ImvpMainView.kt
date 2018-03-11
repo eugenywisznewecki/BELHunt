@@ -1,9 +1,8 @@
-package msq.inok.bel.belhunt.presentation.view
+package msq.inok.bel.belhunt.mvp.view
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
-import io.reactivex.Observable
 import msq.inok.bel.belhunt.entities.ForecastList
 
 /**
@@ -18,13 +17,11 @@ interface ImvpMainView: MvpView {
 
 	fun onShowForecastList()
 
+	fun getData()
+
 	fun updateDataUI()
 
-/*
-	//TODO
-	fun onEditTextEntered()
-*/
-
+	fun sendObservable()
 
 
 }

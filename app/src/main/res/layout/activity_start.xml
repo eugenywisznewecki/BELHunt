@@ -16,6 +16,7 @@
         android:id="@+id/rgDaysForecast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         >
 
         <RadioButton
@@ -70,55 +71,6 @@
         android:src="@drawable/vectorlogo"
         />
 
-    <Spinner
-        android:id="@+id/spinnerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-    </Spinner>
-
-
-    <Button
-        android:id="@+id/addCityButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="@string/add_city"
-        android:visibility="gone"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/enterTime"
-        android:visibility="gone"/>
-
-    <android.support.v7.widget.AppCompatSeekBar
-        android:id="@+id/seekBarTimeView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="300"
-        android:min="1"
-        android:progress="30"
-        android:text="@string/timeToUpdate"
-        android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/textSeekView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:id="@+id/okSetttingChangesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="@string/ok"
-        android:visibility="gone"
-        >
-
-    </Button>
 
 
     <android.support.v7.widget.RecyclerView

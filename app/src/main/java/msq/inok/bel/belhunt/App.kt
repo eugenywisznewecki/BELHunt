@@ -3,7 +3,7 @@ package msq.inok.bel.belhunt
 import android.app.Application
 import msq.inok.bel.belhunt.di.AppComponent
 import com.facebook.stetho.Stetho
-import msq.inok.bel.belhunt.util.dagger.component.DaggerAppComponent
+import msq.inok.bel.belhunt.di.DaggerAppComponent
 import msq.inok.bel.belhunt.di.AppModule
 
 
@@ -30,6 +30,6 @@ class App: Application(){
 	private fun builComponent(): AppComponent {
 		return DaggerAppComponent.builder()
 				.appModule(AppModule(this))
-				.build()// name DaggerYOURCLASSNAME_COMPONENT, COMPILE TIME
+				.build()
 	}
 }

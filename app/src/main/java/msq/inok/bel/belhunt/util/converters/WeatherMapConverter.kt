@@ -7,10 +7,6 @@ import msq.inok.bel.belhunt.entities.ForecastResult
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-/**
- * Created by inoknote on 13/01/18.
- */
-
 class WeatherMapConverter {
 
 	fun convertResultToForList(cityWname: String, forecast: ForecastResult) = with(forecast) {

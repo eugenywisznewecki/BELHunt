@@ -5,15 +5,12 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import msq.inok.bel.belhunt.data.ApplicationSettings
-import msq.inok.bel.belhunt.presentation.presenters.Presenter
+import msq.inok.bel.belhunt.mvp.presenters.Presenter
 import msq.inok.bel.belhunt.serverApi.Communicator
 import msq.inok.bel.belhunt.checkers.BadWeatherGuard
 import msq.inok.bel.belhunt.checkers.InetChecker
 import javax.inject.Singleton
 
-/**
- * Created by User on 13.01.2018.
- */
 @Module
 class AppModule {
 
@@ -22,6 +19,10 @@ class AppModule {
 	}
 
 	private val context: Context
+
+	@Provides
+	@Singleton
+	fun providePresenter(): Presenter = Presenter()
 
 	@Provides
 	fun providesContext(): Context = context
@@ -42,10 +43,5 @@ class AppModule {
 	@Provides
 	@Singleton
 	fun provideBadWeatherGuard(context: Context): BadWeatherGuard = BadWeatherGuard(context)
-
-	@Provides
-	@Singleton
-	fun providePresenter(): Presenter =
-			Presenter()
 
 }

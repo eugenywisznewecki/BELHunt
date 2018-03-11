@@ -1,8 +1,8 @@
 package msq.inok.bel.belhunt.di
 
 import dagger.Component
-import msq.inok.bel.belhunt.presentation.presenters.Presenter
-import msq.inok.bel.belhunt.services.WeatherIService
+import msq.inok.bel.belhunt.mvp.presenters.Presenter
+
 import msq.inok.bel.belhunt.ui.activities.StartActivity
 import javax.inject.Singleton
 
@@ -14,8 +14,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
 	fun inject(activity: StartActivity)
-
-	fun inject(intentService: WeatherIService)
 
 	fun inject(presenter: Presenter)
 

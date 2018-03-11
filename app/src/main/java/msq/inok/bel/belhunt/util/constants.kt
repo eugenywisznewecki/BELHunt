@@ -12,10 +12,8 @@ val BASE_URL = "http://api.openweathermap.org/data/2.5/"
 val DAYSFORECAST = "days_forecast_"
 val INTERVAL_UPDATES = "intervat_updates_"
 val CITY = "_city_"
-
 val CITIES_LIST = "list_cities"
-
 // initially
 val INITTimeUpdate = 30 // min
-val INITdaysToForecast = 2
 val INITCity = "Minsk"
+val INITdaysToFORECAST = 16
