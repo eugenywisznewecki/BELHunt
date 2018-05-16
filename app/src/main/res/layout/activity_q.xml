@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:orientation="horizontal"
+    tools:background="#000000">
+
+    <bel.ink.bel.belhunt.camViews.CameraSourcePreview
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="#000000">
+
+        <bel.ink.bel.belhunt.camViews.GraphicOverlay
+            android:id="@+id/faceOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </bel.ink.bel.belhunt.camViews.CameraSourcePreview>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constratinLayoutView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageButton
+            android:id="@+id/snapShotView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/aim_style"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <ImageButton
+            android:id="@+id/changeCamView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/camera_change_mode"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/snapShotView"
+            app:layout_constraintTop_toTopOf="@+id/snapShotView" />
+
+
+        <ImageButton
+            android:id="@+id/flashLightView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/flash"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/snapShotView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/snapShotView" />
+
+
+
+        <ImageView
+            android:id="@+id/galleryButtonView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/deers"
+            android:transitionName="@string/gallery_transition"
+            app:layout_constraintBottom_toTopOf="@+id/snapShotView"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageButton
+            android:id="@+id/qrImageView"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/qr_scan_icon"
+            app:layout_constraintBottom_toTopOf="@+id/snapShotView"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <ImageView
+        android:id="@+id/ivAutoFocus"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/btn_autofocus"
+        android:tint="#ffffff"
+        android:visibility="gone"
+        tools:visibility="visible" />
+</FrameLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/main_gradient"
+    android:transitionName="@string/transionbackground">
+
+    <ImageView
+        android:id="@+id/logoSplashImage"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/bizon_vector"
+        android:tint="@color/colorWhite"
+        android:transitionName="@string/transionimage"
+
+        />
+
+
+
+
+</LinearLayout>

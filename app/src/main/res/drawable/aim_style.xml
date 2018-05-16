@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/aim_vector"
+       />
+    <item android:state_pressed="true"
+        android:drawable="@drawable/aim_vector_pressed"
+      />
+    <item android:drawable="@drawable/aim_vector_pressed"
+
+    android:state_focused="true" />
+
+</selector>

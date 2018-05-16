@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:orientation="horizontal"
+    tools:background="#FFFFFF">
+
+    <bel.ink.bel.belhunt.camViews.CameraSourcePreview
+        android:id="@+id/previewBarcode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <bel.ink.bel.belhunt.camViews.GraphicOverlay
+            android:id="@+id/graphicOverlayBarcode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </bel.ink.bel.belhunt.camViews.CameraSourcePreview>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constratinLayoutViewBarcode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageButton
+            android:id="@+id/flashLightViewBarcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/flash"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/galleryButtonViewBarcode"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/deers"
+            android:transitionName="@string/gallery_transition"
+            app:layout_constraintBottom_toTopOf="@+id/flashLightViewBarcode"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:background="#000000"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/textViewBarcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="35dp"
+            android:visibility="gone"
+            tools:text="sssssssssss"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

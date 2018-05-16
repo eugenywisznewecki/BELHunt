@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_gradient"
@@ -10,72 +11,41 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"/>
+        android:textColor="@color/colorWhite" />
 
-    <RadioGroup
-        android:id="@+id/rgDaysForecast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        >
 
-        <RadioButton
-            android:id="@+id/radio1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/now"
-            android:textColor="@color/colorWhite">
-        </RadioButton>
-
-        <RadioButton
-            android:id="@+id/radio5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fiveDays"
-            android:textColor="@color/colorWhite">
-        </RadioButton>
-
-        <RadioButton
-            android:id="@+id/radio16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sixteenDays"
-            android:textColor="@color/colorWhite">
-        </RadioButton>
-    </RadioGroup>
-
-    <!--    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enter_city_en"/>-->
-
-    <EditText
-        android:id="@+id/cityTitleView"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/coordinatesTextView"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/rounded_edittext"
-
         android:ems="10"
         android:gravity="center"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorWhite" />
 
-        >
 
-    </EditText>
+    <ProgressBar
+        android:id="@+id/progressRegisterWeather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageGUNS"
+
+        tools:visibility="visible" />
+
 
     <ImageView
         android:id="@+id/imageGUNS"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/vectorlogo"
-        />
+        android:src="@drawable/vectorlogo" />
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/listStartActivity"
+        android:id="@+id/listStartActivity1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        />
+        android:clipToPadding="false" />
 </LinearLayout>

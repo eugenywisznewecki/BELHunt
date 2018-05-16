@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="makePhoto">Камера</string>
+    <string name="logount">Выйти</string>
+    <string name="gallery">Галерея</string>
+    <string name="qr_scanner">QR cканер</string>
+    <string name="no_photos_yet">Еще ни одной фотографии %(</string>
+    <string name="weather">Прогноз погоды по GPS</string>
+    <string name="weatherByGPS">Прогноз для ваших координат</string>
+    <string name="Profile">Профиль</string>
+    <string name="action_share">Поделиться</string>
+    <string name="shareWith">Поделиться с..</string>
+</resources>

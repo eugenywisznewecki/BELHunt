@@ -1,5 +1,24 @@
 <resources>
-    <string name="app_name">BelHunt</string>
+
+    <string name="app_name">CameraApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="laber_widget">WeatherWidg</string>
@@ -22,4 +41,36 @@
     <string name="settings">Settings</string>
     <string name="add_city">Add city</string>
     <string name="minsk">Minsk</string>
+    <string name="title_activity_gallery">title_activity_gallery</string>
+
+    //
+
+    <string name="picture">Picture</string>
+    <string name="description_info">Info</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+    <string name="camera_request">Camera request permission</string>
+    <string name="snapshotButton">Description on snapshot button</string>
+
+    //
+
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run without cam permissions</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+
+    <string name="transionimage">TransiontImage</string>
+    <string name="transionbackground">TransiontBackground</string>
+    <string name="makePhoto">Make photo</string>
+    <string name="logount">LogOut</string>
+    <string name="Profile">Profile</string>
+    <string name="gallery">Gallery</string>
+    <string name="qr_scanner">QR Scanner</string>
+    <string name="no_photos_yet">No photos yet. Improve it</string>
+    <string name="gallery_transition">gallery_transition</string>
+    <string name="weather">Weather by GPS</string>
+    <string name="weatherByGPS">Forecast by your GPS location</string>
+    <string name="action_share">Share</string>
+    <string name="shareWith">Share with</string>
+
+
 </resources>
