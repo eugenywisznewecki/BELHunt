@@ -8,9 +8,9 @@ Android Arcirecture Components, Glide
 
 
 
-
-Ссылка на презентационный ролик:
 https://www.youtube.com/watch?v=TDIXOFnp5TA&feature=youtu.be
+Ссылка на презентационный ролик:
+
 
 <iframe width="854" height="480" src="https://www.youtube.com/embed/TDIXOFnp5TA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
