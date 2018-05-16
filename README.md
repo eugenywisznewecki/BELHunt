@@ -12,6 +12,10 @@ Android Arcirecture Components, Glide
 Ссылка на презентационный ролик:
 https://www.youtube.com/watch?v=TDIXOFnp5TA&feature=youtu.be
 
+<iframe width="854" height="480" src="https://www.youtube.com/embed/TDIXOFnp5TA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+Фотографии экранов:
 
 <a href="https://ibb.co/kCgNiy"><img src="https://preview.ibb.co/dbRYqd/photo_2018_04_21_11_02_28.jpg" alt="photo_2018_04_21_11_02_28" border="0"></a>
 <a href="https://ibb.co/iEPKVd"><img src="https://preview.ibb.co/dqLtqd/photo_2018_05_16_16_17_55.jpg" alt="photo_2018_05_16_16_17_55" border="0"></a>
