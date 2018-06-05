@@ -9,18 +9,15 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import bel.ink.bel.belhunt.R
-import bel.ink.bel.belhunt.ui.adapters.GalleryAdapter
+import bel.ink.bel.belhunt.fragments.AnimalFragment
+import bel.ink.bel.belhunt.fragments.GalleryFragment
 import bel.ink.bel.belhunt.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import java.io.File
 
 
@@ -31,7 +28,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var viewModel: MainViewModel
     private var countRows: Int = 3
-
     private lateinit var listPhotosFiles: List<File>
 
 
@@ -49,6 +45,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         val liveCountRows = viewModel.getCoutRows()
+
+
+
         liveCountRows.observe(this, Observer { count ->
             count?.let { this.countRows = count }
             onUpdateView()
@@ -63,21 +62,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
 
 
+        /*  imageGalleryView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+              override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                  if (dy > 0 || dy < 0 && fab.isShown()) {
+                      fab.hide()
+                  }
+              }
 
-        imageGalleryView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                if (dy > 0 || dy < 0 && fab.isShown()) {
-                    fab.hide()
-                }
-            }
+              override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                  if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                      fab.show()
+                  }
+                  super.onScrollStateChanged(recyclerView, newState)
+              }
+          })*/
 
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    fab.show()
-                }
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-        })
+
+
         fab.setOnClickListener {
             viewModel.startCameraActivity()
         }
@@ -103,11 +104,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun onUpdateView() {
 
-        imageGalleryView.setHasFixedSize(false)
+/*        imageGalleryView.setHasFixedSize(false)
         imageGalleryView.layoutManager = GridLayoutManager(applicationContext, countRows) as RecyclerView.LayoutManager
         val galleryAdapter = GalleryAdapter(this, listPhotosFiles)
         imageGalleryView.adapter = galleryAdapter
-        imageGalleryView.adapter.notifyDataSetChanged()
+        imageGalleryView.adapter.notifyDataSetChanged()*/
 
 
     }
@@ -134,6 +135,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
+
+        val fragmentManager = supportFragmentManager
+
+        //TO companion ROUNTER
         when (item.itemId) {
             R.id.nav_camera -> {
                 startActivity(Intent(applicationContext, FaceCameraActivity::class.java))
@@ -144,6 +149,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_gallery -> {
                 drawer_layout.closeDrawers()
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, GalleryFragment()).commit()
+
+
             }
 
             R.id.nav_forecast -> {
@@ -154,6 +164,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 viewModel.logout()
                 finish()
             }
+
+
+            R.id.nav_animals_cataloque -> {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, AnimalFragment()).commit()
+
+            }
+
+
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -180,14 +199,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     }
                 }
             }
-        /*()->{}
-        ()->{}
-        ()->{}
-        ()->{}
-        ()->{}
-        ()->{}
-        ()->{}*/
-
         }
 
     }

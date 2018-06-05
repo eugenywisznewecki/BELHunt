@@ -22,7 +22,7 @@ class AppRouter(val contextIn: Context) {
 
     fun openDelailActivity(file: File, position: Int) {
 
-        val intent = Intent(contextIn, DetailActivity::class.java).putExtra(FILE_PATH, file)
+        val intent = Intent(contextIn, DetailActivity::class.java).putExtra(FILE_PATH, file).addFlags(FLAG_ACTIVITY_NEW_TASK)
         intent.putExtra(POSITION, position)
         contextIn.startActivity(intent)
     }

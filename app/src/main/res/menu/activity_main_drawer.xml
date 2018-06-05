@@ -24,6 +24,11 @@
             android:icon="@drawable/weather_vector"
             android:title="@string/weather" />
 
+        <item
+            android:id="@+id/nav_animals_cataloque"
+            android:icon="@drawable/weather_vector"
+            android:title="@string/animals" />
+
     </group>
 
     <item android:title="@string/Profile">

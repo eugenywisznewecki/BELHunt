@@ -71,6 +71,8 @@
     <string name="weatherByGPS">Forecast by your GPS location</string>
     <string name="action_share">Share</string>
     <string name="shareWith">Share with</string>
+    <string name="title_activity_animals">AnimalsActivity</string>
+    <string name="animals">Hunting Animals</string>
 
 
 </resources>

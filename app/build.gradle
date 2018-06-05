@@ -107,6 +107,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$AAC"
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
     annotationProcessor "android.arch.lifecycle:compiler:$AAC"
     implementation "com.google.dagger:dagger:$Dagger2"
     kapt "com.google.dagger:dagger-compiler:$Dagger2"
@@ -118,7 +120,7 @@ dependencies {
     implementation("com.github.bumptech.glide:recyclerview-integration:$GlideVersion") {
         transitive = false
     }
-   /* implementation('com.github.hotchemi:permissionsdispatcher:3.2.0') {
+    /* implementation('com.github.hotchemi:permissionsdispatcher:3.2.0') {
         exclude module: "support-v13"
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.2.0"*/
