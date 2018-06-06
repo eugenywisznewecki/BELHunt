@@ -11,7 +11,7 @@ import timber.log.Timber
 import java.io.File
 import java.io.IOException
 
-class MainViewModel(val applic: Application) : AndroidViewModel(applic) {
+class GalleryViewModel(val applic: Application) : AndroidViewModel(applic) {
 
     private val router by lazy { AppRouter(applic.applicationContext) }
     private val authFB: FirebaseAuth by lazy {

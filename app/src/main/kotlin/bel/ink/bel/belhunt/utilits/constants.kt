@@ -21,3 +21,5 @@ const val RC_HANDLE_GMS = 9001
 const val RC_HANDLE_CAMERA_PERM = 2
 const val GOOGLE_INTENT_ID = 9001
 
+const val ANIMAL_PHOTO_PATH = "animals"
+

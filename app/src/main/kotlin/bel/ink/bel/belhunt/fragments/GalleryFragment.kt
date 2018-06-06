@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,9 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import bel.ink.bel.belhunt.R
 import bel.ink.bel.belhunt.ui.adapters.GalleryAdapter
-import bel.ink.bel.belhunt.viewmodels.MainViewModel
+import bel.ink.bel.belhunt.viewmodels.GalleryViewModel
 import kotlinx.android.synthetic.main.gallery_fragment.*
-import timber.log.Timber
 import java.io.File
 
 class GalleryFragment : Fragment() {
@@ -22,7 +20,7 @@ class GalleryFragment : Fragment() {
 
     lateinit var myView: View
 
-    lateinit var mainViewModel: MainViewModel
+    lateinit var mainViewModel: GalleryViewModel
 
     private lateinit var listPhotosFiles: List<File>
 
@@ -33,14 +31,14 @@ class GalleryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProviders.of(this).get(GalleryViewModel::class.java)
 
         val liveListPhotos = mainViewModel.getLiveLisststPhotos()
         liveListPhotos.observe(this, Observer { list ->
             list?.let {
                 listPhotosFiles = list
                 onUpdateView()
-                Timber.d("++ observe fragment")
+
             }
         })
     }

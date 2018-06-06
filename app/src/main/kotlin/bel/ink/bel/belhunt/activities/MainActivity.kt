@@ -16,7 +16,7 @@ import android.view.View
 import bel.ink.bel.belhunt.R
 import bel.ink.bel.belhunt.fragments.AnimalFragment
 import bel.ink.bel.belhunt.fragments.GalleryFragment
-import bel.ink.bel.belhunt.viewmodels.MainViewModel
+import bel.ink.bel.belhunt.viewmodels.GalleryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //because not in activity.xml
     private lateinit var actionSettings: Toolbar
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: GalleryViewModel
     private var countRows: Int = 3
     private lateinit var listPhotosFiles: List<File>
 
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         actionSettings.setOnClickListener(this)
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(GalleryViewModel::class.java)
         if (!viewModel.isPlayMarker()) finish()
 
 
@@ -60,22 +60,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onUpdateView()
             }
         })
-
-
-        /*  imageGalleryView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-              override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                  if (dy > 0 || dy < 0 && fab.isShown()) {
-                      fab.hide()
-                  }
-              }
-
-              override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                  if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                      fab.show()
-                  }
-                  super.onScrollStateChanged(recyclerView, newState)
-              }
-          })*/
 
 
 
