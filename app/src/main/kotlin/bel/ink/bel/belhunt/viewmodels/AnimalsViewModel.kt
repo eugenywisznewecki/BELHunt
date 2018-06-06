@@ -35,9 +35,21 @@ class AnimalsViewModel(val applic: Application) : AndroidViewModel(applic) {
 
         Timber.d(images[0].toString())
         val animalList = listOf(
-                Animal(images[0],"Deer", "description111"),
-                Animal(images[1],"Deer2", "description222"),
-                Animal(images[1],"Deer3", "description333")
+                Animal(images[0],"Кабан", "description111"),
+                Animal(images[1],"Лось", "description222"),
+                Animal(images[2],"Олень", "description333"),
+                Animal(images[3],"Лесная куница", "description111"),
+                Animal(images[4],"Волк", "description222"),
+                Animal(images[5],"Белка", "description333"),
+                Animal(images[6],"Хорек", "description111"),
+                Animal(images[7],"Каменная куница", "description222"),
+                Animal(images[8],"Американская норка", "description333"),
+                Animal(images[9],"Заяц русак", "description111"),
+                Animal(images[10],"Косуля", "description222"),
+                Animal(images[11],"Заяц беляк", "description333"),
+                Animal(images[12],"Бобр", "description111"),
+                Animal(images[13],"Ондатра", "description222"),
+                Animal(images[14],"Лисица", "description333")
                 )
 
             liveListPhotos.value = animalList

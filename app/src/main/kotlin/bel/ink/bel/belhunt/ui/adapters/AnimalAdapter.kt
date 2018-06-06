@@ -41,7 +41,7 @@ class AnimalAdapter(val context: Context, val animalList: List<Animal>) : Recycl
 
 
         holder.animalNale.text = animalList[position].title
-        holder.animalDescr.text = animalList[position].title
+
 
         Timber.d("++ ${animalList[position]}")
 
@@ -51,13 +51,13 @@ class AnimalAdapter(val context: Context, val animalList: List<Animal>) : Recycl
 
         val img: ImageView
         val animalNale: TextView
-        val animalDescr: TextView
+
 
 
         init {
             img = view.findViewById<View>(R.id.img_animal) as ImageView
             animalNale = view.findViewById<View>(R.id.animalNameView) as TextView
-            animalDescr = view.findViewById<View>(R.id.animalDescriptionName) as TextView
+
 
             view.setOnClickListener(this)
         }

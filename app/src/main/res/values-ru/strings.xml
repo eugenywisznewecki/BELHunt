@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="makePhoto">Камера</string>
     <string name="logount">Выйти</string>
     <string name="gallery">Галерея</string>
@@ -10,5 +11,5 @@
     <string name="Profile">Профиль</string>
     <string name="action_share">Поделиться</string>
     <string name="shareWith">Поделиться с..</string>
-    <string name="animals">Hunting Animals</string>
+    <string name="animals">Охотничьи животные</string>
 </resources>

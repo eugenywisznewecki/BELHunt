@@ -58,7 +58,7 @@ class AnimalFragment: Fragment() {
     fun onUpdateView() {
         galleryAdapter = AnimalAdapter(activity!!.applicationContext, listAminals)
         recycle_animals.adapter = galleryAdapter
-        recycle_animals.layoutManager = GridLayoutManager(activity, 3) as RecyclerView.LayoutManager
+        recycle_animals.layoutManager = GridLayoutManager(activity, 1) as RecyclerView.LayoutManager
         recycle_animals.setHasFixedSize(false)
         recycle_animals.adapter.notifyDataSetChanged()
 
