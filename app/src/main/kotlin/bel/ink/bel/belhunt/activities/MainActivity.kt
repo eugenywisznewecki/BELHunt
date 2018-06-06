@@ -19,6 +19,9 @@ import bel.ink.bel.belhunt.fragments.GalleryFragment
 import bel.ink.bel.belhunt.viewmodels.GalleryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import android.view.Gravity
+
+
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -28,7 +31,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var viewModel: GalleryViewModel
     private var countRows: Int = 3
-    private lateinit var listPhotosFiles: List<File>
+/*    private lateinit var listPhotosFiles: List<File>*/
+
+    val fragmentManager by lazy {  supportFragmentManager }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,29 +43,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         actionSettings = findViewById(R.id.toolbar) as Toolbar
 
 
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, GalleryFragment()).commit()
+        fab.visibility = View.VISIBLE
+
+
+
         actionSettings.setOnClickListener(this)
 
         viewModel = ViewModelProviders.of(this).get(GalleryViewModel::class.java)
         if (!viewModel.isPlayMarker()) finish()
 
 
-        val liveCountRows = viewModel.getCoutRows()
+        /* val liveCountRows = viewModel.getCoutRows()
 
 
+         liveCountRows.observe(this, Observer { count ->
+             count?.let { this.countRows = count }
+             onUpdateView()
+         })
 
-        liveCountRows.observe(this, Observer { count ->
-            count?.let { this.countRows = count }
-            onUpdateView()
-        })
-
-        val liveListPhotos = viewModel.getLiveLisststPhotos()
-        liveListPhotos.observe(this, Observer { list ->
-            list?.let {
-                listPhotosFiles = list
-                onUpdateView()
-            }
-        })
-
+         val liveListPhotos = viewModel.getLiveLisststPhotos()
+         liveListPhotos.observe(this, Observer { list ->
+             list?.let {
+                 listPhotosFiles = list
+                 onUpdateView()
+             }
+         })
+ */
 
 
         fab.setOnClickListener {
@@ -78,24 +89,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onResume() {
         super.onResume()
-        if (!this::listPhotosFiles.isInitialized || listPhotosFiles.size == 0) {
+     /*   if (!this::listPhotosFiles.isInitialized || listPhotosFiles.size == 0) {
             notifyNoPhotoView.visibility = View.VISIBLE
-        } else notifyNoPhotoView.visibility = View.INVISIBLE
+        } else notifyNoPhotoView.visibility = View.INVISIBLE*/
 
-        viewModel.getListPath()
+      /*  viewModel.getListPath()*/
+
+        //TODO
+        drawer_layout.openDrawer(Gravity.LEFT)
 
     }
 
-    fun onUpdateView() {
+/*    fun onUpdateView() {
 
-/*        imageGalleryView.setHasFixedSize(false)
+        imageGalleryView.setHasFixedSize(false)
         imageGalleryView.layoutManager = GridLayoutManager(applicationContext, countRows) as RecyclerView.LayoutManager
         val galleryAdapter = GalleryAdapter(this, listPhotosFiles)
         imageGalleryView.adapter = galleryAdapter
-        imageGalleryView.adapter.notifyDataSetChanged()*/
+        imageGalleryView.adapter.notifyDataSetChanged()*//*
 
 
-    }
+    }*/
 
 
     override fun onBackPressed() {
@@ -105,6 +119,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onBackPressed()
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         return true
@@ -118,9 +133,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
-
-        val fragmentManager = supportFragmentManager
 
         //TO companion ROUNTER
         when (item.itemId) {
@@ -136,7 +148,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, GalleryFragment()).commit()
-
+                fab.visibility = View.VISIBLE
 
             }
 
@@ -149,13 +161,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 finish()
             }
 
-
             R.id.nav_animals_cataloque -> {
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, AnimalFragment()).commit()
 
+                fab.visibility = View.INVISIBLE
             }
-
 
         }
 

@@ -44,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == GOOGLE_INTENT_ID) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             loginViewModel.login(task)
+
         }
     }
 
