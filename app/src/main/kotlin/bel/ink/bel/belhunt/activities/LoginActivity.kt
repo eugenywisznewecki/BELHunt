@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import bel.ink.bel.belhunt.R
+import bel.ink.bel.belhunt.utilits.NetChecker
 import bel.ink.bel.belhunt.viewmodels.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.android.synthetic.main.activity_login.*
@@ -32,8 +33,14 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         signInGooelView.setOnClickListener {
-            val intent = loginViewModel.googleSingInClient.signInIntent
-            startActivityForResult(intent, GOOGLE_INTENT_ID)
+
+            if (NetChecker(applicationContext).checInternet()) {
+                val intent = loginViewModel.googleSingInClient.signInIntent
+                startActivityForResult(intent, GOOGLE_INTENT_ID)
+            }
+            else {
+                Toast.makeText(this, "No internet!", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -44,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == GOOGLE_INTENT_ID) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             loginViewModel.login(task)
-
         }
     }
 
