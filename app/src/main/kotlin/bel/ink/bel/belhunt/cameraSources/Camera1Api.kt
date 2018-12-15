@@ -1,3 +1,4 @@
+/*
 package bel.ink.bel.belhunt.cameraSources
 
 
@@ -612,3 +613,4 @@ class Camera1Api
         }
     }
 }
+*/

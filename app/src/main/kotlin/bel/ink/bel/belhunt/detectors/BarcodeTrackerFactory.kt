@@ -12,7 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *//*
+
 package bel.ink.bel.belhunt.detectors
 
 import android.content.Context
@@ -30,3 +31,4 @@ internal class BarcodeTrackerFactory(private val graphicOverlay: GraphicOverlay<
     }
 }
 
+*/

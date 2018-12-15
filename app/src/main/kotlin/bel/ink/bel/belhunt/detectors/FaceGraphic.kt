@@ -1,3 +1,4 @@
+/*
 package bel.ink.bel.belhunt.detectors
 
 import android.graphics.Canvas
@@ -62,4 +63,4 @@ class FaceGraphic(overlay: GraphicOverlay<*>) : GraphicOverlay.Graphic(overlay) 
         canvas.drawCircle(x, y, (bottom - top) / 2F, mBoxPaint)
 
     }
-}
+}*/

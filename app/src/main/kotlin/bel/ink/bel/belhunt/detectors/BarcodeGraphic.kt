@@ -1,3 +1,4 @@
+/*
 package bel.ink.bel.belhunt.detectors
 
 import android.graphics.Canvas
@@ -43,3 +44,4 @@ class BarcodeGraphic(val overlay: GraphicOverlay<*>) : GraphicOverlay.Graphic(ov
         canvas.drawText(barcode.rawValue, rect.left, rect.bottom, textPaint)
     }
 }
+*/

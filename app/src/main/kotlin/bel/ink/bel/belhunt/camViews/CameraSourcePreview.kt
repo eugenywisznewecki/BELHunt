@@ -1,3 +1,4 @@
+/*
 package bel.ink.bel.belhunt.camViews
 
 import android.content.Context
@@ -28,7 +29,9 @@ class CameraSourcePreview : ViewGroup {
 
 
     private lateinit var cameraApi1: Camera1Api
-    /*   private lateinit var mCamera2Api: ICameraApi*/
+    */
+/*   private lateinit var mCamera2Api: ICameraApi*//*
+
 
 
     private lateinit var overlay: GraphicOverlay<*>
@@ -197,3 +200,4 @@ class CameraSourcePreview : ViewGroup {
 }
 
 
+*/

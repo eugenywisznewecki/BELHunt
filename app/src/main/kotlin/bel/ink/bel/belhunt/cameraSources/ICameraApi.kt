@@ -1,3 +1,4 @@
+/*
 package bel.ink.bel.belhunt.cameraSources
 
 import android.view.SurfaceHolder
@@ -10,8 +11,10 @@ import bel.ink.bel.belhunt.cameraSources.actionInterfaces.ShutCallback
 // and crashes
 interface ICameraApi {
 
-    /* fun start(textureView: AutoFitTextureView, displayOrientation: Int)
- */
+    */
+/* fun start(textureView: AutoFitTextureView, displayOrientation: Int)
+ *//*
+
     fun start(surfaceHolder: SurfaceHolder): ICameraApi
 
     fun capturePicture(shut: ShutCallback, picCallback: PictureCallback)
@@ -28,4 +31,4 @@ interface ICameraApi {
 
     fun autoFocus(autoFocus: AutoFocusCallback): Unit
 
-}
+}*/

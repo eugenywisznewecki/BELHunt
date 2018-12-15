@@ -1,3 +1,4 @@
+/*
 package bel.ink.bel.belhunt.camViews
 
 import android.content.Context
@@ -35,3 +36,4 @@ class AutoFitTextureView(context: Context, attrs: AttributeSet? = null, defStyle
         }
     }
 }
+*/
